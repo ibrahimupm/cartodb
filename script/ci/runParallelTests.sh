@@ -2,7 +2,6 @@
 
 set -ex
 
-# CARTO_POSTGRES_HOST=postgresql
 CARTO_POSTGRES_HOST=localhost
 CARTO_POSTGRES_PORT=5432
 CARTO_POSTGRES_DIRECT_PORT=5432
@@ -24,7 +23,7 @@ createdb -T template0 -O postgres -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USE
 psql -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USERNAME template_postgis -c 'CREATE EXTENSION IF NOT EXISTS postgis;CREATE EXTENSION IF NOT EXISTS postgis_topology;'
 
 # Setup test databases
-bundle exec rake parallel:drop
+# bundle exec rake parallel:drop
 bundle exec rake parallel:create
 bundle exec rake parallel:migrate
 
@@ -32,7 +31,9 @@ bundle exec rake cartodb:db:create_publicuser
 # TODO: bundle exec rake cartodb:db:create_federated_server
 
 # Run parallel testsc
+
 bundle exec rake parallel:spec['spec\/models\/carto']
+# 1588 examples, 839 failures - Most due to the unicode error
 
 # [OK] bundle exec rspec spec/commands
 
@@ -43,5 +44,4 @@ bundle exec rake parallel:spec['spec\/models\/carto']
 #   spec/models/table_spec.rb
 
 # [?]
-# bundle exec rspec \
-#   spec/requests/superadmin
+# bundle exec rake parallel:spec['spec\/requests\/.*superadmin']
