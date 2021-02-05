@@ -35,7 +35,7 @@ bundle exec rake cartodb:db:create_publicuser
 # TODO: bundle exec rake cartodb:db:create_federated_server
 
 # Run parallel testsc
-bundle exec rake parallel:spec['spec\/models']
+bundle exec rake parallel:spec['spec\/models\/carto']
 
 # [OK] bundle exec rspec spec/commands
 
@@ -48,5 +48,3 @@ bundle exec rake parallel:spec['spec\/models']
 # [?]
 # bundle exec rspec \
 #   spec/requests/superadmin
-
-bundle exec rspec spec/models/carto
