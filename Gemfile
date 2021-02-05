@@ -119,6 +119,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'faker'
+  gem 'parallel_tests'
   gem 'pry-byebug', '3.9.0'
   gem 'rack'
   gem 'rb-readline'
