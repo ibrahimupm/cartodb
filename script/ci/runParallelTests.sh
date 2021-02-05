@@ -1,6 +1,12 @@
 #!/bin/bash
 
-set -e
+set -ex
+
+CARTO_POSTGRES_HOST=postgresql
+CARTO_POSTGRES_PORT=5432
+CARTO_POSTGRES_DIRECT_PORT=5432
+CARTO_POSTGRES_USERNAME=postgres
+CARTO_POSTGRES_PASSWORD=
 
 # Copy database.yml
 cp /cartodb/config/database.ci.yml /cartodb/config/database.yml
@@ -8,10 +14,8 @@ cp /cartodb/config/database.ci.yml /cartodb/config/database.yml
 # Init Builder
 cd /cartodb
 mkdir -p /cartodb/log && chmod -R 777 /cartodb/log
-createdb -T template0 -O postgres -h localhost -U postgres -E UTF8 template_postgis || true
-psql -h localhost -U postgres template_postgis -c 'CREATE EXTENSION IF NOT EXISTS postgis;CREATE EXTENSION IF NOT EXISTS postgis_topology;'
-REDIS_PORT=6335 RAILS_ENV=test bundle exec rake cartodb:test:prepare
-cd -
+createdb -T template0 -O postgres -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USERNAME -E UTF8 template_postgis || true
+psql -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USERNAME template_postgis -c 'CREATE EXTENSION IF NOT EXISTS postgis;CREATE EXTENSION IF NOT EXISTS postgis_topology;'
 
 # Create additional databases
 bundle exec rake parallel:create
@@ -25,7 +29,10 @@ bundle exec rake parallel:migrate
 # Setup environment from scratch
 bundle exec rake parallel:setup
 
-# Run parallel tests
+bundle exec rake cartodb:db:create_publicuser
+# TODO: bundle exec rake cartodb:db:create_federated_server
+
+# Run parallel testsc
 bundle exec rake parallel:spec['spec\/models']
 
 # [OK] bundle exec rspec spec/commands
@@ -39,3 +46,5 @@ bundle exec rake parallel:spec['spec\/models']
 # [?]
 # bundle exec rspec \
 #   spec/requests/superadmin
+
+bundle exec rspec spec/models/carto
