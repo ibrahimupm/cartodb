@@ -10,13 +10,10 @@ psql -h localhost -U postgres template_postgis -c 'CREATE EXTENSION IF NOT EXIST
 REDIS_PORT=6335 RAILS_ENV=test bundle exec rake cartodb:test:prepare
 cd -
 
-bundle exec rspec spec/commands
+# [OK] bundle exec rspec spec/commands
 
-# WRAPPER
-# script/ci/wrapper.sh $WORKERS
-
-# TESTS
-# time parallel -j $WORKERS -a parallel_tests/specfull.txt 'script/ci/executor.sh {} {%} {#}'
-
-# REPORTER
-# script/ci/reporter.sh
+bundle exec rspec \
+  spec/commands \
+  spec/models/carto/user_spec.rb \
+  spec/models/carto/user_table_spec.rb \
+  spec/models/table_spec.rb
