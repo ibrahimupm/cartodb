@@ -12,6 +12,8 @@ CARTO_POSTGRES_PASSWORD=
 # Avoids conflicts dropping DB & users
 PARALLEL=true
 
+# Show the previous database.yml contents as a reference:
+cat /cartodb/config/database.yml
 # Copy database.yml
 cp /cartodb/config/database.ci.yml /cartodb/config/database.yml
 
