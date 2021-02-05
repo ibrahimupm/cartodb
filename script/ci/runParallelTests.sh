@@ -8,6 +8,9 @@ CARTO_POSTGRES_DIRECT_PORT=5432
 CARTO_POSTGRES_USERNAME=postgres
 CARTO_POSTGRES_PASSWORD=
 
+# Avoids conflicts dropping DB & users
+PARALLEL=true
+
 # Copy database.yml
 cp /cartodb/config/database.ci.yml /cartodb/config/database.yml
 
