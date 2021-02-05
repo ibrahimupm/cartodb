@@ -32,7 +32,8 @@ bundle exec rake cartodb:db:create_publicuser
 
 # Run parallel testsc
 
-bundle exec rake parallel:spec['spec\/models\/carto']
+bundle exec rake parallel:spec
+#bundle exec rake parallel:spec['spec\/models\/carto']
 # 1588 examples, 839 failures - Most due to the unicode error
 
 # [OK] bundle exec rspec spec/commands
