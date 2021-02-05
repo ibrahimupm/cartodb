@@ -12,8 +12,11 @@ cd -
 
 # [OK] bundle exec rspec spec/commands
 
+# [?]
+# bundle exec rspec \
+#   spec/models/carto/user_spec.rb \
+#   spec/models/carto/user_table_spec.rb \
+#   spec/models/table_spec.rb
+
 bundle exec rspec \
-  spec/commands \
-  spec/models/carto/user_spec.rb \
-  spec/models/carto/user_table_spec.rb \
-  spec/models/table_spec.rb
+  spec/requests/superadmin
