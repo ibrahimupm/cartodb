@@ -1,3 +1,5 @@
+require 'mocha'
+
 # This file provides a minimal Rails integration test environment with an empty database, without users.
 require 'simplecov_helper'
 require 'rspec_configuration'
@@ -29,6 +31,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include FactoryGirl::Syntax::Methods
   config.include SharedEntitiesSpecHelper
+  config.mock_with :mocha
 
   config.after(:each) do
     Delorean.back_to_the_present

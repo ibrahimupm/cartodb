@@ -3,6 +3,7 @@ require 'rspec/expectations'
 require 'rspec/mocks'
 require 'mocha'
 
-RSpec.configure do |config|
-  config.mock_with :mocha
-end
+# FFF please remove this and include globally
+# RSpec.configure do |config|
+#   config.mock_with :mocha
+# end

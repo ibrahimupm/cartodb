@@ -1,3 +1,5 @@
+require 'mocha'
+
 require_relative './simplecov_helper'
 require_relative './rspec_configuration'
 require 'helpers/spec_helper_helpers'
@@ -35,6 +37,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include FactoryGirl::Syntax::Methods
   config.include SharedEntitiesSpecHelper
+  config.mock_with :mocha
 
   config.after(:each) do
     Delorean.back_to_the_present

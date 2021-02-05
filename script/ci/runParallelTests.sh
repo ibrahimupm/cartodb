@@ -3,7 +3,7 @@
 set -aex
 
 CARTO_POSTGRES_HOST=localhost
-CARTO_POSTGRES_HOST=postgresql
+# CARTO_POSTGRES_HOST=postgresql
 CARTO_POSTGRES_PORT=5432
 CARTO_POSTGRES_DIRECT_PORT=5432
 CARTO_POSTGRES_USERNAME=postgres
@@ -35,7 +35,7 @@ bundle exec rake cartodb:db:create_publicuser --trace
 
 # Run parallel testsc
 
-bundle exec rake parallel:spec[$NUM_CPUS]['spec\/models\/carto']
+bundle exec rake parallel:spec[$NUM_CPUS,'spec\/models\/carto']
 #bundle exec rake parallel:spec['spec\/models\/carto']
 # 1588 examples, 839 failures - Most due to the unicode error
 
