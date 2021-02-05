@@ -27,15 +27,25 @@ psql -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USERNAME template_postgis -c 'CR
 
 # Setup test databases
 # bundle exec rake parallel:drop[$NUM_CPUS] --trace
-bundle exec rake parallel:create[$NUM_CPUS] --trace
-bundle exec rake parallel:migrate[$NUM_CPUS] --trace
+# bundle exec rake parallel:create[$NUM_CPUS] --trace
+# bundle exec rake parallel:migrate[$NUM_CPUS] --trace
+
+TEST_ENV_NUMBER= bundle exec rake db:create
+TEST_ENV_NUMBER=1 bundle exec rake db:create
+TEST_ENV_NUMBER=2 bundle exec rake db:create
+TEST_ENV_NUMBER=3 bundle exec rake db:create
+
+TEST_ENV_NUMBER= bundle exec rake db:create
+TEST_ENV_NUMBER=1 bundle exec rake db:create
+TEST_ENV_NUMBER=2 bundle exec rake db:create
+TEST_ENV_NUMBER=3 bundle exec rake db:create
 
 bundle exec rake cartodb:db:create_publicuser --trace
 # TODO: bundle exec rake cartodb:db:create_federated_server --trace
 
 # Run parallel testsc
 
-bundle exec rake parallel:spec[$NUM_CPUS,'spec\/models\/carto']
+bundle exec rake parallel:spec[$NUM_CPUS,'spec\/models\/carto\/rate_limit_spec']
 #bundle exec rake parallel:spec['spec\/models\/carto']
 # 1588 examples, 839 failures - Most due to the unicode error
 
