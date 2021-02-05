@@ -23,12 +23,12 @@ createdb -T template0 -O postgres -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USE
 psql -h $CARTO_POSTGRES_HOST -U $CARTO_POSTGRES_USERNAME template_postgis -c 'CREATE EXTENSION IF NOT EXISTS postgis;CREATE EXTENSION IF NOT EXISTS postgis_topology;'
 
 # Setup test databases
-# bundle exec rake parallel:drop
-bundle exec rake parallel:create
-bundle exec rake parallel:migrate
+# bundle exec rake parallel:drop --trace
+bundle exec rake parallel:create --trace
+bundle exec rake parallel:migrate --trace
 
-bundle exec rake cartodb:db:create_publicuser
-# TODO: bundle exec rake cartodb:db:create_federated_server
+bundle exec rake cartodb:db:create_publicuser --trace
+# TODO: bundle exec rake cartodb:db:create_federated_server --trace
 
 # Run parallel testsc
 
